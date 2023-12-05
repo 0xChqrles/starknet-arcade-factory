@@ -1,4 +1,7 @@
+use option::OptionTrait;
+use traits::TryInto;
 use debug::PrintTrait;
+use starknet::testing;
 
 // locals
 use arcade_factory::factory::contract::ArcadeFactory;
@@ -33,6 +36,19 @@ fn setup() -> ArcadeFactoryABIDispatcher {
 // Tests
 //
 
+// Cannot test address computation with current cairo version
+
+#[test]
+#[available_gas(20000000)]
+fn test_arcade_account_implementation() {
+  let factory = setup();
+
+  assert(
+    factory.arcade_account_implementation() == ArcadeAccountMock::TEST_CLASS_HASH.try_into().unwrap(),
+    'Invalid arcade account impl'
+  );
+}
+
 #[test]
 #[available_gas(20000000)]
 fn test_deploy() {
@@ -51,16 +67,24 @@ fn test_deploy() {
   assert(arcade_account.master_account() == constants::MASTER(), 'Invalid master account');
 }
 
+// Upgrade
+
 #[test]
 #[available_gas(20000000)]
-fn test_test() {
+#[should_panic(expected: ('Caller is not the owner', 'ENTRYPOINT_FAILED',))]
+fn test_upgrade_unauthorized() {
   let factory = setup();
 
-  let addr = factory.compute_address(
-    salt: 42,
-    public_key: 0x1f3c942d7f492a37608cde0d77b884a5aa9e11d2919225968557370ddb5a5aa,
-    master_account: starknet::contract_address_const::<0x067efd64D87F476EAD4c5F55b68E6E82E33bEceeB4715F1F154c4986E005Ce82>()
-  );
+  testing::set_contract_address(constants::OTHER());
+  factory.upgrade(new_class_hash: 'new class hash'.try_into().unwrap());
+}
 
-  addr.print();
+#[test]
+#[available_gas(20000000)]
+#[should_panic(expected: ('Caller is the zero address', 'ENTRYPOINT_FAILED',))]
+fn test_upgrade_from_zero() {
+  let factory = setup();
+
+  testing::set_contract_address(constants::ZERO());
+  factory.upgrade(new_class_hash: 'new class hash'.try_into().unwrap());
 }
