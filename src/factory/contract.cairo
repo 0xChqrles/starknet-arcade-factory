@@ -1,5 +1,5 @@
 #[starknet::contract]
-mod Rewards {
+mod ArcadeFactory {
   use openzeppelin::access::ownable::OwnableComponent;
   use openzeppelin::upgrades::UpgradeableComponent;
 
@@ -29,7 +29,7 @@ mod Rewards {
   #[abi(embed_v0)]
   impl FactoryImpl = FactoryComponent::FactoryImpl<ContractState>;
 
-  // Rewards Funds
+  // Factory
   impl FactoryInternalImpl = FactoryComponent::InternalImpl<ContractState>;
 
   //

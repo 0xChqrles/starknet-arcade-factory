@@ -10,7 +10,7 @@ trait IFactory<TState> {
     self: @TState,
     salt: felt252,
     public_key: felt252,
-    master_account: starknet::ContractAddress,
+    master_account: starknet::ContractAddress
   ) -> starknet::ContractAddress;
 
   fn deploy(
@@ -26,13 +26,13 @@ trait IFactory<TState> {
 //
 
 #[starknet::interface]
-trait RewardsABI<TState> {
+trait ArcadeFactoryABI<TState> {
   // IFactory
   fn compute_address(
     self: @TState,
     salt: felt252,
     public_key: felt252,
-    master_account: starknet::ContractAddress,
+    master_account: starknet::ContractAddress
   ) -> starknet::ContractAddress;
 
   fn deploy(
