@@ -7,3 +7,5 @@ version = "0.1.0"
 [dependencies]
 openzeppelin = { git = "https://github.com/OpenZeppelin/cairo-contracts.git", rev = "7a7be63" }
 # arcade_account = { git = "https://github.com/BibliothecaDAO/arcade-account", rev = "9afeb23" }
+
+[[target.starknet-contract]]

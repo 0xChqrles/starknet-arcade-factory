@@ -1,0 +1,8 @@
+# Arcade factory
+
+### hashes
+
+```
+factory: 0x03d003968582bc3d01cc36a44dbd6b1da19473df091305a9dd4cd0bcf5bb9e69
+account: 0x0251830adc3d8b4d818c2c309d71f1958308e8c745212480c26e01120c69ee49
+```

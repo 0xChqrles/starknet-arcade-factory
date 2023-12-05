@@ -1,3 +1,5 @@
+use debug::PrintTrait;
+
 // locals
 use arcade_factory::factory::contract::ArcadeFactory;
 
@@ -47,4 +49,18 @@ fn test_deploy() {
 
   assert(arcade_account.public_key() == constants::PUBLIC_KEY, 'Invalid public key');
   assert(arcade_account.master_account() == constants::MASTER(), 'Invalid master account');
+}
+
+#[test]
+#[available_gas(20000000)]
+fn test_test() {
+  let factory = setup();
+
+  let addr = factory.compute_address(
+    salt: 42,
+    public_key: 0x1f3c942d7f492a37608cde0d77b884a5aa9e11d2919225968557370ddb5a5aa,
+    master_account: starknet::contract_address_const::<0x067efd64D87F476EAD4c5F55b68E6E82E33bEceeB4715F1F154c4986E005Ce82>()
+  );
+
+  addr.print();
 }

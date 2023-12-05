@@ -5,7 +5,7 @@ mod FactoryComponent {
   // locals
   use arcade_factory::factory::interface;
 
-  const CONTRACT_ADDRESS_PREFIX: felt252 = 0x19c4f5a32bf8efb8ff328e8933002412ad1a38b70e8e8d672289996cc025fcd;
+  const CONTRACT_ADDRESS_PREFIX: felt252 = 'STARKNET_CONTRACT_ADDRESS';
 
   //
   // Storage
@@ -41,11 +41,11 @@ mod FactoryComponent {
 
       // calldata
       let mut calldata_hash = pedersen::pedersen(0, public_key);
-      let mut calldata_hash = pedersen::pedersen(0, master_account.into());
+      let mut calldata_hash = pedersen::pedersen(calldata_hash, master_account.into());
       calldata_hash = pedersen::pedersen(calldata_hash, 2);
 
       // compute address
-      let mut address = CONTRACT_ADDRESS_PREFIX;
+      let mut address = pedersen::pedersen(0, CONTRACT_ADDRESS_PREFIX);
       address = pedersen::pedersen(address, 0);
       address = pedersen::pedersen(address, salt);
       address = pedersen::pedersen(address, class_hash);
