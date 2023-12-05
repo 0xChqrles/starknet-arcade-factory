@@ -26,6 +26,10 @@ mod FactoryComponent {
     +HasComponent<TContractState>,
     +Drop<TContractState>,
   > of interface::IFactory<ComponentState<TContractState>> {
+    fn arcade_account_implementation(self: @ComponentState<TContractState>) -> starknet::ClassHash {
+      self._arcade_account_implementation.read()
+    }
+
     fn compute_address(
       self: @ComponentState<TContractState>,
       salt: felt252,

@@ -6,6 +6,8 @@ use array::{ ArrayTrait, SpanSerde };
 
 #[starknet::interface]
 trait IFactory<TState> {
+  fn arcade_account_implementation(self: @TState) -> starknet::ClassHash;
+
   fn compute_address(
     self: @TState,
     salt: felt252,
@@ -28,6 +30,7 @@ trait IFactory<TState> {
 #[starknet::interface]
 trait ArcadeFactoryABI<TState> {
   // IFactory
+  fn arcade_account_implementation(self: @TState) -> starknet::ClassHash;
   fn compute_address(
     self: @TState,
     salt: felt252,
